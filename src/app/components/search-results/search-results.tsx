@@ -52,7 +52,7 @@ const SearchResults = ({ response }: { response: BookingResponse }) => {
         checkboxesPrice.forEach((cb: HTMLInputElement) => cb.checked = false);
         checkboxesRating.forEach((cb: HTMLInputElement) => cb.checked = false);
         checkboxesFacilities.forEach((cb: HTMLInputElement) => cb.checked = false);
-        
+
         setFilterPrice([]);
         setFilterRating([]);
         setFilterType('');

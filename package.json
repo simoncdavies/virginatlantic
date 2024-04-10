@@ -10,6 +10,7 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
+    "@cypress/react18": "^2.0.0",
     "@types/luxon": "^3.4.1",
     "@types/parsimmon": "^1.10.9",
     "cypress": "^13.6.3",
