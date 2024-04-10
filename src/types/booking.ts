@@ -55,6 +55,7 @@ export interface HotelContent {
    hotelFacilities: string[]
    starRating: number | string
    propertyType: string
+   url: string
 }
 
 export interface HotelImage {

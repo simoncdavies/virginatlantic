@@ -1,10 +1,20 @@
 'use client';
-import { FilterTitle, FilterPrice, FilterRating, FilterFacilities } from './filters.styled';
+import {
+    FilterTitle,
+    FilterPrice,
+    FilterRating,
+    FilterFacilities,
+    FilterInputWrapper,
+    FilterInputLabel,
+    FilterInputCheckbox
+} from './filters.styled';
 import {ChangeEvent} from "react";
 
 export const FilterByPrice = ({ changePrice }: {
     changePrice: any
 }) => {
+    const prices = ['0,1000', '1000,1500', '1500,2000', '2000,50000'];
+    const priceNames = ['up to £1000', '£1000 - £1500', '£1500 - £2000', 'over £2000'];
     const checkboxPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
         const arrValue = value.split(',').map(Number);
@@ -25,23 +35,13 @@ export const FilterByPrice = ({ changePrice }: {
 
     return (
         <FilterPrice>
-            <h2>Price (per person)</h2>
-            <p>
-                <input type="checkbox" value="0,1000" id="price-1" onChange={checkboxPriceChange} className="filter-price"/>
-                <label htmlFor="price-1">up to £1000</label>
-            </p>
-            <p>
-                <input type="checkbox" value="1000,1500" id="price-2" onChange={checkboxPriceChange} className="filter-price"/>
-                <label htmlFor="price-2">£1000 - £1500</label>
-            </p>
-            <p>
-                <input type="checkbox" value="1500,2000" id="price-3" onChange={checkboxPriceChange} className="filter-price"/>
-                <label htmlFor="price-3">£1500 - £2000</label>
-            </p>
-            <p>
-                <input type="checkbox" value="2000,50000" id="price-4" onChange={checkboxPriceChange} className="filter-price"/>
-                <label htmlFor="price-4">over £2000</label>
-            </p>
+            <FilterTitle>Price (per person)</FilterTitle>
+            {prices.map((price, index) => (
+                <FilterInputWrapper key={`price-${index}`}>
+                    <FilterInputCheckbox type="checkbox" value={price} id={`${price}-${index}`} onChange={checkboxPriceChange} className="filter-price"/>
+                    <FilterInputLabel htmlFor={`${price}-${index}`}>{priceNames[index]}</FilterInputLabel>
+                </FilterInputWrapper>
+            ))}
         </FilterPrice>
     );
 }
@@ -78,12 +78,12 @@ export const FilterByRating = ({ratings, changeRating, changeType}: {
 
     return (
         <FilterRating>
-            <h2>Rating</h2>
+            <FilterTitle>Rating</FilterTitle>
             {ratings.map((rating, index) => (
-                <p key={`rating-${index}`}>
-                    <input type="checkbox" value={rating} id={`${rating}-${index}`} onChange={checkboxRatingChange} className="filter-rating" />
-                    <label htmlFor={`${rating}-${index}`}>{rating}</label>
-                </p>
+                <FilterInputWrapper key={`rating-${index}`}>
+                    <FilterInputCheckbox type="checkbox" value={rating} id={`${rating}-${index}`} onChange={checkboxRatingChange} className="filter-rating" />
+                    <FilterInputLabel htmlFor={`${rating}-${index}`}>{rating}</FilterInputLabel>
+                </FilterInputWrapper>
             ))}
         </FilterRating>
     );
@@ -111,12 +111,12 @@ export const FilterByFacilities = ({ facilities, changeFacilities }: {
 
     return (
         <FilterFacilities>
-            <h2>Facilities</h2>
+            <FilterTitle>Facilities</FilterTitle>
             {facilities.map((facility, index) => (
-                <p key={`facilities-${index}`}>
-                    <input type="checkbox" value={facility} id={`${facility}-${index}`} onChange={checkboxFacilitiesChange} className="filter-facilities" />
-                    <label htmlFor={`${facility}-${index}`}>{facility}</label>
-                </p>
+                <FilterInputWrapper key={`facilities-${index}`}>
+                    <FilterInputCheckbox type="checkbox" value={facility} id={`${facility}-${index}`} onChange={checkboxFacilitiesChange} className="filter-facilities" />
+                    <FilterInputLabel htmlFor={`${facility}-${index}`}>{facility}</FilterInputLabel>
+                </FilterInputWrapper>
             ))}
         </FilterFacilities>
     );

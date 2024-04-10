@@ -1,7 +1,26 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { decode } from 'html-entities';
 import { BookingResponse, Holiday } from "@/types/booking";
-import { SearchResultsItem } from './search-results.styled';
+import {
+    SearchResultsItem,
+    SearchResultsItemImage,
+    SearchResultsItemHotel,
+    SearchResultsTitle,
+    SearchResultsNumber,
+    SearchResultsItemLocation,
+    SearchResultsItemBoardBasis,
+    SearchResultsItemRating,
+    SearchResultsItemDescription,
+    SearchResultsItemPointsList,
+    SearchResultsItemPointsListItem,
+    SearchResultsItemTotal,
+    SearchResultsItemPricePP,
+    SearchResultsItemPricePPBefore,
+    SearchResultsItemDiscount,
+    SearchResultsItemViewDetails
+} from './search-results.styled';
+import { FilterSection, FilterSectionTitle, FilterButtonReset } from '../filters/filters.styled';
 import { FilterByPrice, FilterByRating, FilterByFacilities } from "../filters/filters.component";
 
 const SearchResults = ({ response }: { response: BookingResponse }) => {
@@ -14,6 +33,7 @@ const SearchResults = ({ response }: { response: BookingResponse }) => {
 
     useEffect(() => {
         setResults(response);
+        console.log(response);
     }, []);
 
     useEffect(() => {
@@ -71,31 +91,52 @@ const SearchResults = ({ response }: { response: BookingResponse }) => {
 
     return (
         <>
-            <section>
-                <button onClick={() => resetFilters()}>reset</button>
+            <FilterSectionTitle>
+                Filter by...
+                <FilterButtonReset onClick={() => resetFilters()}>reset all</FilterButtonReset>
+            </FilterSectionTitle>
+            <FilterSection>
                 <FilterByPrice changePrice={setFilterPrice}/>
                 <FilterByRating ratings={uniqueRatings} changeRating={setFilterRating} changeType={setFilterType}/>
                 <FilterByFacilities facilities={uniqueFacilities} changeFacilities={setFilterFacilities}/>
-            </section>
+            </FilterSection>
             <section>
-                <h2>{holidays?.length} results found</h2>
+                <SearchResultsTitle><SearchResultsNumber>{holidays?.length}</SearchResultsNumber> results found</SearchResultsTitle>
                 {
                     holidays.map((holiday, index) => {
+                        {/* TODO: request params to be added to end of this URL */}
+                        const url = `https://www.virginholidays.co.uk/holiday${holiday.hotel.content.url}`;
+
                         return (
-                            <SearchResultsItem className="search-results-item" key={`hol-${index}`} data-rating={holiday.hotel.content.vRating} data-facilities={holiday.hotel.content.hotelFacilities} data-price={holiday.totalPrice}>
-                                <h1>{holiday.hotel.name}</h1>
-                                <h1>{holiday.hotel.content.vRating}</h1>
-                                <h2>{holiday.hotel.boardBasis}</h2>
-                                <h3>
-                                    <span style={{'textDecoration': 'line-through'}}>{holiday.totalPriceBeforeDiscount}</span> {holiday.totalPrice}
-                                </h3>
-                                <h4>
-                                    <span style={{'textDecoration': 'line-through'}}>{holiday.pricePerPersonBeforeDiscount}</span> {holiday.pricePerPerson}
-                                </h4>
-                                <h5>{holiday.webDiscount}</h5>
-                                <img src={holiday.hotel.content.images[0].RESULTS_CAROUSEL.url} alt={holiday.hotel.content.images[0].IMAGE_DESCRIPTION}/>
-                                <p>{holiday.hotel.content.images.length}</p>
-                                <p>{holiday.hotel.content.parentLocation}</p>
+                            <SearchResultsItem className="search-results-item" key={`hol-${index}`}>
+                                <div>
+                                    <SearchResultsItemImage src={holiday.hotel.content.images[0].RESULTS_CAROUSEL.url} alt={holiday.hotel.content.images[0].IMAGE_DESCRIPTION}/>
+                                </div>
+                                <div>
+                                    <SearchResultsItemHotel href={url}>{holiday.hotel.name}</SearchResultsItemHotel>
+                                    <SearchResultsItemLocation>{holiday.hotel.content.parentLocation}</SearchResultsItemLocation>
+                                    <SearchResultsItemRating>Virgin Rating of {holiday.hotel.content.vRating}</SearchResultsItemRating>
+                                    <SearchResultsItemBoardBasis>{holiday.hotel.boardBasis}</SearchResultsItemBoardBasis>
+                                    <SearchResultsItemDescription>{decode(holiday.hotel.content.hotelDescription)}</SearchResultsItemDescription>
+                                </div>
+                                <div>
+                                    <SearchResultsItemPointsList>
+                                        {
+                                            holiday.hotel.content.atAGlance.map((point, index) => {
+                                                return (<SearchResultsItemPointsListItem key={`point-${index}`}>{decode(point)}</SearchResultsItemPointsListItem>);
+                                            })
+                                        }
+                                    </SearchResultsItemPointsList>
+                                    <SearchResultsItemTotal>
+                                        {/* TODO: get guest data from params */}
+                                        Total for 2 guests £{holiday.totalPrice}
+                                    </SearchResultsItemTotal>
+                                    <SearchResultsItemPricePP>
+                                        <SearchResultsItemPricePPBefore>£{holiday.pricePerPersonBeforeDiscount}</SearchResultsItemPricePPBefore> £{holiday.pricePerPerson}pp
+                                    </SearchResultsItemPricePP>
+                                    <SearchResultsItemDiscount>Includes total discount of £{holiday.webDiscount}</SearchResultsItemDiscount>
+                                    <SearchResultsItemViewDetails href={url}>View Details</SearchResultsItemViewDetails>
+                                </div>
                             </SearchResultsItem>);
                     })
                 }

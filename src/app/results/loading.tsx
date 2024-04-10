@@ -1,5 +1,5 @@
 import { LoadingComponent } from './results.styled';
 
 export default function Loading() {
-    return <LoadingComponent>Loading&hellip;</LoadingComponent>
+    return <LoadingComponent>Finding your next holiday&hellip;</LoadingComponent>
 }

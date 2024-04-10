@@ -1,8 +1,6 @@
 import { BookingResponse } from "@/types/booking";
 import { Rooms } from "@/utils/composition.service";
-import FiltersComponent from '../filters/filters.component';
 import SearchResults from './search-results';
-import { SearchResultsItem } from './search-results.styled';
 
 async function getData(params: { [key: string]: string | string[] | undefined }) {
   const body = {
