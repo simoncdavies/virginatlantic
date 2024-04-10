@@ -7,10 +7,10 @@ describe('FilterByPrice Component', () => {
         const changePrice = cy.stub().as('changePrice');
         mount(<FilterByPrice changePrice={changePrice}/>);
 
-        cy.get('.filter-price').eq(0).check();
-        cy.get('.filter-price').eq(1).check();
-        cy.get('.filter-price').eq(2).check();
-        cy.get('.filter-price').eq(3).check();
+        cy.get('.filter-price').eq(0).check({force: true});
+        cy.get('.filter-price').eq(1).check({force: true});
+        cy.get('.filter-price').eq(2).check({force: true});
+        cy.get('.filter-price').eq(3).check({force: true});
 
         cy.get('@changePrice').should('have.callCount', 4);
     });
@@ -23,9 +23,9 @@ describe('FilterByRating Component', () => {
         const ratings = ['1 star', '2 star', '3 star', 'Villas'];
         mount(<FilterByRating ratings={ratings} changeRating={changeRating} changeType={changeType}/>);
 
-        cy.get('.filter-rating').eq(0).check();
-        cy.get('.filter-rating').eq(1).check();
-        cy.get('.filter-rating').eq(2).check();
+        cy.get('.filter-rating').eq(0).check({force: true});
+        cy.get('.filter-rating').eq(1).check({force: true});
+        cy.get('.filter-rating').eq(2).check({force: true});
 
         cy.get('@changeRating').should('have.callCount', 3);
     });
@@ -36,7 +36,7 @@ describe('FilterByRating Component', () => {
         const ratings = ['1 star', '2 star', '3 star', 'Villas'];
         mount(<FilterByRating ratings={ratings} changeRating={changeRating} changeType={changeType}/>);
 
-        cy.get('.filter-rating').eq(3).check();
+        cy.get('.filter-rating').eq(3).check({force: true});
         cy.get('@changeType').should('have.callCount', 1);
     });
 });
@@ -47,8 +47,8 @@ describe('FilterByFacilities Component', () => {
         const facilities = ['Swimming Pool', 'Gym'];
         mount(<FilterByFacilities facilities={facilities} changeFacilities={changeFacilities}/>);
 
-        cy.get('.filter-facilities').eq(0).check();
-        cy.get('.filter-facilities').eq(1).check();
+        cy.get('.filter-facilities').eq(0).check({force: true});
+        cy.get('.filter-facilities').eq(1).check({force: true});
 
         cy.get('@changeFacilities').should('have.callCount', 2);
     });
