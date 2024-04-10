@@ -17,7 +17,7 @@ describe('SearchResults Component', () => {
     });
 
     it('Filter results by price', () => {
-        cy.get('.filter-price').eq(0).check(); // up tp 1000
+        cy.get('.filter-price').eq(0).check(); // up to 1000
         cy.get('.search-results-item').should('have.length', 39);
     });
 
@@ -34,5 +34,16 @@ describe('SearchResults Component', () => {
     it('Filter results by facilities', () => {
         cy.get('.filter-facilities').eq(0).check(); // restaurant
         cy.get('.search-results-item').should('have.length', 65);
+    });
+
+    it('Filter results by multiple', () => {
+        cy.get('.filter-price').eq(1).check(); // 1000 to 1500
+        cy.get('.filter-price').eq(2).check(); // 1500 to 2000
+        cy.get('.filter-rating').eq(0).check(); // 4 star
+        cy.get('.filter-rating').eq(2).check(); // 4+ star
+        cy.get('.filter-rating').eq(3).check(); // 3+ star
+        cy.get('.filter-facilities').eq(2).check(); // free parking
+        cy.get('.filter-facilities').eq(12).check(); // swimming pool
+        cy.get('.search-results-item').should('have.length', 4);
     });
 });
