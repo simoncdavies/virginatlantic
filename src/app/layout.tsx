@@ -4,6 +4,8 @@ import Image from 'next/image'
 import './globals.css'
 import Link from 'next/link'
 
+import StyledComponentsRegistry from './lib/registry'
+
 export const metadata: Metadata = {
   title: 'Virgin Atlantic | Front End Coding Test',
   description: 'Created by Virgin Atlantic Digital Team',
@@ -17,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+      <StyledComponentsRegistry>
         <header>
           <div className={`wrapper`}>
             <Link href="/">
@@ -31,6 +34,7 @@ export default function RootLayout({
           </div>
         </header>
         {children}
+      </StyledComponentsRegistry>
       </body>
     </html>
   )

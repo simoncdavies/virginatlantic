@@ -14,7 +14,12 @@ export interface BookingResponse {
 
 export interface Holiday {
     totalPrice: number
+    totalPriceBeforeDiscount: number
     pricePerPerson: number
+    pricePerPersonBeforeDiscount: number
+    deposit: number
+    depositPerPerson: number
+    webDiscount: number
     flyingClubMiles: number
     virginPoints: number
     tierPoints: number
@@ -42,7 +47,7 @@ export interface HotelContent {
    hotelDescription: string
    atAGlance: string[]
    parentLocation: string
-   images: HotelImage[]   
+   images: HotelImage[]
    holidayType: string[]
    boardBasis: string[]
    hotelLocation: string[]
@@ -54,6 +59,8 @@ export interface HotelContent {
 
 export interface HotelImage {
     RESULTS_CAROUSEL: Image
+    MOBILE_MAIN: Image
+    IMAGE_DESCRIPTION: string
 }
 
 export interface Image {

@@ -1,5 +1,8 @@
 import { BookingResponse } from "@/types/booking";
 import { Rooms } from "@/utils/composition.service";
+import FiltersComponent from '../filters/filters.component';
+import SearchResults from './search-results';
+import { SearchResultsItem } from './search-results.styled';
 
 async function getData(params: { [key: string]: string | string[] | undefined }) {
   const body = {
@@ -36,12 +39,9 @@ export default async function SearchResultsComponent({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const req = await getData(searchParams);
-  const results: BookingResponse = req;
+  const response: BookingResponse = req;
 
   return (
-    <section>
-      <h2>{results?.holidays?.length} results found</h2>
-      <p>Please fill out the filters and results list below&hellip;</p>
-    </section>
+      <SearchResults response={response} />
   );
 }

@@ -1,3 +1,5 @@
+import { LoadingComponent } from './results.styled';
+
 export default function Loading() {
-    return <p>Loading&hellip;</p>
+    return <LoadingComponent>Loading&hellip;</LoadingComponent>
 }

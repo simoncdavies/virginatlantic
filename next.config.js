@@ -12,6 +12,9 @@ const nextConfig = {
 	typescript: {
 		ignoreBuildErrors: true,
 	},
+	compiler: {
+		styledComponents: true,
+	},
 	async headers() {
 		return [
 		  {

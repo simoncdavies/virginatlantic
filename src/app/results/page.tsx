@@ -3,17 +3,17 @@ import SearchResultsComponent from '../components/search-results/search-results.
 import Loading from './loading';
 
 export default function Results({
-  searchParams,
+    searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+    searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  return (
-    <>
-      <h1>Search results</h1>
+    return (
+        <>
+            <h1>Search results</h1>
 
-      <Suspense fallback={<Loading />}>
-        <SearchResultsComponent searchParams={searchParams} />
-      </Suspense>
-    </>
-  )
+            <Suspense fallback={<Loading/>}>
+                <SearchResultsComponent searchParams={searchParams}/>
+            </Suspense>
+        </>
+    )
 }
