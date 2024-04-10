@@ -1,9 +1,8 @@
 import React from 'react';
 import {mount} from '@cypress/react18';
-import {BookingResponse, Holiday} from "@/types/booking"; // Update with your types import
-import SearchResults from '../../src/app/components/search-results/search-results'; // Update with the correct file path
+import {BookingResponse} from "@/types/booking"; // Update with your types import
+import SearchResults from '@/app/components/search-results/search-results'; // Update with the correct file path
 import results from "../data/results";
-import {last} from "rxjs";
 
 describe('SearchResults Component', () => {
     const response: BookingResponse = results;

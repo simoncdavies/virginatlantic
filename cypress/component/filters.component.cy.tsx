@@ -1,6 +1,6 @@
 import React from 'react';
 import {mount} from '@cypress/react18';
-import {FilterByPrice, FilterByRating, FilterByFacilities} from '../../src/app/components/filters/filters.component'; // Update with your actual file path
+import {FilterByPrice, FilterByRating, FilterByFacilities} from '@/app/components/filters/filters.component'; // Update with your actual file path
 
 describe('FilterByPrice Component', () => {
     it('Changes price filter when checkboxes are clicked', () => {
